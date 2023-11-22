@@ -10,9 +10,11 @@ import java.io.IOException;
 public class SpaceApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SpaceApp.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+
+        MainUI root = new MainUI();
+
+        Scene scene = new Scene(root);
+        stage.setTitle("CMPT 381 Assignment 4: Multiple Views, Transforms and Selection - mds569");
         stage.setScene(scene);
         stage.show();
     }
