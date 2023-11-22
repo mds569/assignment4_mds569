@@ -14,11 +14,6 @@ public class SpaceModel {
     {
         asteroids = new ArrayList<Asteroid>();
         stars = new ArrayList<Star>();
-
-        // Create 100 random stars for the background
-        for (int i = 0; i < 101; i++){
-            createStar(Math.random(), Math.random(), 5);
-        }
     }
 
     // Create new Asteroid object
@@ -51,6 +46,13 @@ public class SpaceModel {
         Star star = new Star(x, y, radius);
         stars.add(star);
         pubSub.publish("create");
+    }
+
+    public void createInitialStars(){
+        // Create 100 random stars for the background
+        for (int i = 0; i < 100; i++){
+            createStar(Math.random(), Math.random(), 5);
+        }
     }
 
     // Delete a Star at a specific index

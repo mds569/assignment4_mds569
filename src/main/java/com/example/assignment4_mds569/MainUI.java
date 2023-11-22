@@ -32,8 +32,10 @@ public class MainUI extends VBox {
         publishSubscribe.addSubscriber("update", view);
         publishSubscribe.addSubscriber("selection", view);
 
+        model.createInitialStars();
+
         for (int i = 0; i < 10; i++){
-            model.createStar(Math.random(), Math.random(), 30);
+            model.createAsteroid(Math.random(), Math.random(), 30);
         }
 
         // Event routing
