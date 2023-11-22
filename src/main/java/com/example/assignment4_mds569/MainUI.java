@@ -7,7 +7,7 @@ public class MainUI extends VBox {
 
     public MainUI(){
         SpaceController controller = new SpaceController();
-        SpaceView view = new SpaceView(500);
+        SpaceView view = new SpaceView(800);
         SpaceModel model = new SpaceModel();
         InteractionModel iModel = new InteractionModel();
         PublishSubscribe publishSubscribe = new PublishSubscribe();

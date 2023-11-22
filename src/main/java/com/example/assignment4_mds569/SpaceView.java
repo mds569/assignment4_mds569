@@ -48,11 +48,11 @@ public class SpaceView extends StackPane implements Subscriber {
         graphicsContext.clearRect(0, 0, canvasSize, canvasSize);
         graphicsContext.setFill(Color.WHITE);
         for(Star star : model.getStars()){
-            graphicsContext.fillOval(star.getX(), star.getY(), star.getRadius(),star.getRadius());
+            graphicsContext.fillOval(star.getX()*canvasSize, star.getY()*canvasSize, star.getRadius(), star.getRadius());
         }
         graphicsContext.setFill(Color.GRAY);
         for (Asteroid asteroid : model.getAsteroids()){
-            graphicsContext.fillOval(asteroid.getX(), asteroid.getY(), asteroid.getRadius(), asteroid.getRadius());
+            graphicsContext.fillOval(asteroid.getX()*canvasSize, asteroid.getY()*canvasSize, asteroid.getRadius(), asteroid.getRadius());
         }
         System.out.println("Draw");
     }
