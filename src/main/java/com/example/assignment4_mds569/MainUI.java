@@ -32,6 +32,10 @@ public class MainUI extends VBox {
         publishSubscribe.addSubscriber("update", view);
         publishSubscribe.addSubscriber("selection", view);
 
+        for (int i = 0; i < 10; i++){
+            model.createStar(Math.random(), Math.random(), 30);
+        }
+
         // Event routing
         //setOnKeyPressed(controller::handleKeyPressed);
 
