@@ -35,7 +35,7 @@ public class MainUI extends VBox {
         model.createInitialStars();
 
         for (int i = 0; i < 10; i++){
-            model.createAsteroid(Math.random(), Math.random(), 30);
+            model.createAsteroid(Math.random(), Math.random(), (15 + Math.random() * (70 - 15)));
         }
 
         // Event routing
