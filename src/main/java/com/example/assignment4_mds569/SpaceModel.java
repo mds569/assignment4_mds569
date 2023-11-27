@@ -17,9 +17,9 @@ public class SpaceModel {
     }
 
     // Create new Asteroid object
-    public void createAsteroid(double x, double y, double radius)
+    public void createAsteroid(/*double x, double y, double radius*/)
     {
-        Asteroid asteroid = new Asteroid(x, y, radius);
+        Asteroid asteroid = new Asteroid();
         asteroids.add(asteroid);
         pubSub.publish("create");
     }
