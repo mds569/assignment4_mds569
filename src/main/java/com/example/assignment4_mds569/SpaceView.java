@@ -29,19 +29,19 @@ public class SpaceView extends StackPane implements Subscriber {
         switch (chnl){
             case "create" -> {
                 draw();
-                //System.out.println("Create");
+                System.out.println("Create");
             }
             case "delete" -> {
                 draw();
-                //System.out.println("Delete");
+                System.out.println("Delete");
             }
             case "update" -> {
                 draw();
-                //System.out.println("Update");
+                System.out.println("Update");
             }
             case "selection" -> {
                 draw();
-                //System.out.println("Selection");
+                System.out.println("Selection");
             }
         }
     }

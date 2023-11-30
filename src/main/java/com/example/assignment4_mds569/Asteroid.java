@@ -6,7 +6,7 @@ public class Asteroid {
 
     // Store location and radius of the Asteroid
     // Use normalized coordinates for position (0.0 - 1.0)
-    private double x, y, radius;
+    private double x, y, radius, angle;
     private ArrayList<Double> xPoints;
     private ArrayList<Double> yPoints;
 
@@ -17,6 +17,7 @@ public class Asteroid {
         this.x = Math.random();
         this.y = Math.random();
         this.radius = (0.05 + Math.random() * (0.10 - 0.05));
+        this.angle = 0;
         createPolygon();
     }
 
@@ -25,6 +26,8 @@ public class Asteroid {
     public double getY() {return this.y;}
 
     public double getRadius() {return this.radius;}
+
+    public double getAngle() {return this.angle;}
 
     public double[] getxPoints() {return this.xPoints.stream().mapToDouble(Double::doubleValue).toArray();}
 
@@ -67,5 +70,9 @@ public class Asteroid {
 
     public void setRadius(double radius){
         this.radius = radius;
+    }
+
+    public void setAngle(double angle){
+        this.angle = angle;
     }
 }
