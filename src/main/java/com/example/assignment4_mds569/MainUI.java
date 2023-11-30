@@ -1,5 +1,6 @@
 package com.example.assignment4_mds569;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -37,6 +38,14 @@ public class MainUI extends VBox {
         for (int i = 0; i < 10; i++){
             model.createAsteroid();
         }
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                controller.handleAnimationTick();
+            }
+        };
+        timer.start();
 
         // Event routing
         //setOnKeyPressed(controller::handleKeyPressed);

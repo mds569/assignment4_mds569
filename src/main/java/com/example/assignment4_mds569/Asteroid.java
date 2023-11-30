@@ -1,6 +1,7 @@
 package com.example.assignment4_mds569;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Asteroid {
 
@@ -19,9 +20,9 @@ public class Asteroid {
         this.y = Math.random();
         this.radius = (0.05 + Math.random() * (0.10 - 0.05));
         this.angle = 0;
-        this.xVelocity = ((-0.02) + Math.random() * (0.03 - (-0.02)));
-        this.yVelocity = ((-0.02) + Math.random() * (0.03 - (-0.02)));
-        this.aVelocity = ((-0.02) + Math.random() * (0.03 - (-0.02)));
+        this.xVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
+        this.yVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
+        this.aVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
         createPolygon();
     }
 
@@ -96,5 +97,94 @@ public class Asteroid {
 
     public void setaVelocity(double aVelocity){
         this.aVelocity = aVelocity;
+    }
+
+    public void increasexVelocity(){
+        // Get the furthest left and right points of the Asteroid
+        double furthestLeft = Collections.min(this.xPoints);
+        double furthestRight = Collections.max(this.xPoints);
+        if (furthestLeft > 1.0){
+            // Move the Asteroid back to the left side of the screen
+            for (int i = 0; i < this.xPoints.size(); i++){
+                this.xPoints.set(i, this.xPoints.get(i) - 1.0);
+            }
+        }
+        else if (furthestRight < 0.0){
+            // Move the Asteroid back to the right side of the screen
+            for (int i = 0; i < this.xPoints.size(); i++){
+                this.xPoints.set(i, this.xPoints.get(i) + 1.0);
+            }
+        }
+        else {
+            for (int i = 0; i < this.xPoints.size(); i++){
+                this.xPoints.set(i, this.xPoints.get(i) + this.xVelocity);
+            }
+        }
+    }
+
+    public void increaseyVelocity(){
+        // Get the furthest up and bottom points of the Asteroid
+        double furthestUp = Collections.min(this.yPoints);
+        double furthestDown = Collections.max(this.yPoints);
+        if (furthestUp > 1.0){
+            // Move the Asteroid back to the top of the screen
+            for (int i = 0; i < this.yPoints.size(); i++){
+                this.yPoints.set(i, this.yPoints.get(i) - 1.0);
+            }
+        }
+        else if (furthestDown < 0.0){
+            // Move the Asteroid back to the bottom of the screen
+            for (int i = 0; i < this.yPoints.size(); i++){
+                this.yPoints.set(i, this.yPoints.get(i) + 1.0);
+            }
+        }
+        else {
+            for (int i = 0; i < this.yPoints.size(); i++){
+                this.yPoints.set(i, this.yPoints.get(i) + this.yVelocity);
+            }
+        }
+    }
+
+    public void increaseXandYVelocities(){
+        // Get the furthest left, right, top, and bottom points of the Asteroid
+        double furthestLeft = Collections.min(this.xPoints);
+        double furthestRight = Collections.max(this.xPoints);
+        double furthestTop = Collections.min(this.yPoints);
+        double furthestBottom = Collections.max(this.yPoints);
+
+        // Wrap around for x-axis
+        if (furthestLeft > 1.0) {
+            for (int i = 0; i < this.xPoints.size(); i++) {
+                this.xPoints.set(i, this.xPoints.get(i) - 1.0);
+            }
+        } else if (furthestRight < 0.0) {
+            for (int i = 0; i < this.xPoints.size(); i++) {
+                this.xPoints.set(i, this.xPoints.get(i) + 1.0);
+            }
+        }
+
+        // Wrap around for y-axis
+        if (furthestTop > 1.0) {
+            for (int i = 0; i < this.yPoints.size(); i++) {
+                this.yPoints.set(i, this.yPoints.get(i) - 1.0);
+            }
+        } else if (furthestBottom < 0.0) {
+            for (int i = 0; i < this.yPoints.size(); i++) {
+                this.yPoints.set(i, this.yPoints.get(i) + 1.0);
+            }
+        }
+
+        // Update points
+        for (int i = 0; i < this.xPoints.size(); i++) {
+            this.xPoints.set(i, this.xPoints.get(i) + this.xVelocity);
+        }
+
+        for (int i = 0; i < this.yPoints.size(); i++) {
+            this.yPoints.set(i, this.yPoints.get(i) + this.yVelocity);
+        }
+    }
+
+    public void increaseaVelocity() {
+        this.angle += aVelocity;
     }
 }

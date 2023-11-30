@@ -40,6 +40,22 @@ public class SpaceModel {
     // Return Asteroid at index
     public Asteroid getAsteroid(int index) {return this.asteroids.get(index);}
 
+    public void moveAsteroids() {
+        for (Asteroid asteroid : this.asteroids){
+            //asteroid.increasexVelocity();
+            //asteroid.increaseyVelocity();
+            asteroid.increaseXandYVelocities();
+        }
+        pubSub.publish("update");
+    }
+
+    public void spinAsteroids() {
+        for (Asteroid asteroid : this.asteroids){
+            asteroid.increaseaVelocity();
+        }
+        pubSub.publish("update");
+    }
+
     // Create new Star object
     public void createStar(double x, double y, double radius)
     {

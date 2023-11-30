@@ -12,4 +12,9 @@ public class SpaceController {
     public void setiModel(InteractionModel newIModel){
         this.iModel = newIModel;
     }
+
+    public void handleAnimationTick() {
+        model.moveAsteroids();
+        //model.spinAsteroids();
+    }
 }
