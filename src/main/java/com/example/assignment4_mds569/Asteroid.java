@@ -16,7 +16,7 @@ public class Asteroid {
         // Set instance variables
         this.x = Math.random();
         this.y = Math.random();
-        this.radius = (0.15 + Math.random() * (0.70 - 0.15));
+        this.radius = (0.05 + Math.random() * (0.10 - 0.05));
         createPolygon();
     }
 
@@ -26,9 +26,9 @@ public class Asteroid {
 
     public double getRadius() {return this.radius;}
 
-    public ArrayList<Double> getxPoints() {return this.xPoints/*.stream().mapToDouble(Double::doubleValue).toArray()*/;}
+    public double[] getxPoints() {return this.xPoints.stream().mapToDouble(Double::doubleValue).toArray();}
 
-    public ArrayList<Double> getyPoints() {return this.yPoints/*.stream().mapToDouble(Double::doubleValue).toArray()*/;}
+    public double[] getyPoints() {return this.yPoints.stream().mapToDouble(Double::doubleValue).toArray();}
 
     public int getNumPoints() {return this.numPoints;}
 
@@ -40,7 +40,7 @@ public class Asteroid {
         this.numPoints = sections;
         for (int i = 0; i < sections; i++){
             double angle = (2 * Math.PI / sections) * i;
-            double rad = this.radius * (0.5 + Math.random());
+            double rad = this.radius * (0.1 + Math.random());
             double xVal = this.x + rad * Math.cos(angle);
             double yVal = this.y + rad * Math.sin(angle);
 

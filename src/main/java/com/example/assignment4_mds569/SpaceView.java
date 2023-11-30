@@ -29,19 +29,19 @@ public class SpaceView extends StackPane implements Subscriber {
         switch (chnl){
             case "create" -> {
                 draw();
-                System.out.println("Create");
+                //System.out.println("Create");
             }
             case "delete" -> {
                 draw();
-                System.out.println("Delete");
+                //System.out.println("Delete");
             }
             case "update" -> {
                 draw();
-                System.out.println("Update");
+                //System.out.println("Update");
             }
             case "selection" -> {
                 draw();
-                System.out.println("Selection");
+                //System.out.println("Selection");
             }
         }
     }
@@ -53,43 +53,19 @@ public class SpaceView extends StackPane implements Subscriber {
             graphicsContext.fillOval(star.getX()*canvasSize, star.getY()*canvasSize, star.getRadius(), star.getRadius());
         }
         graphicsContext.setFill(Color.GRAY);
-        /*for (Asteroid asteroid : model.getAsteroids()){
-            for (Double coord : asteroid.getxPoints()){
-                coord = coord * canvasSize;
-            }
-            for (Double coord : asteroid.getyPoints()){
-                coord = coord * canvasSize;
-            }
-            //graphicsContext.fillOval(asteroid.getX()*canvasSize, asteroid.getY()*canvasSize, asteroid.getRadius(), asteroid.getRadius());
-            graphicsContext.fillPolygon(asteroid.getxPoints(), asteroid.getyPoints(), asteroid.getNumPoints());
-        }*/
 
         for (Asteroid asteroid : model.getAsteroids()) {
-            ArrayList<Double> xPoints = asteroid.getxPoints();
-            ArrayList<Double> yPoints = asteroid.getyPoints();
+            double[] xPoints = asteroid.getxPoints();
+            double[] yPoints = asteroid.getyPoints();
 
-            System.out.println("Original xPoints: " + xPoints.toString());
-            System.out.println("Original yPoints: " + yPoints.toString());
-
-            for (int i = 0; i < xPoints.size(); i++){
-                xPoints.set(i, xPoints.get(i) * canvasSize);
-            }
-            for (int i = 0; i < yPoints.size(); i++){
-                yPoints.set(i, yPoints.get(i) * canvasSize);
+            for (int i = 0; i < xPoints.length; i++){
+                xPoints[i] = xPoints[i] * canvasSize;
+                yPoints[i] = yPoints[i] * canvasSize;
             }
 
-            //System.out.println("Scaled xPoints: " + xPoints.toString());
-            //System.out.println("Scaled yPoints: " + yPoints.toString());
-
-
-            graphicsContext.fillPolygon(
-                    xPoints.stream().mapToDouble(Double::doubleValue).toArray(),
-                    yPoints.stream().mapToDouble(Double::doubleValue).toArray(),
-                    asteroid.getNumPoints()
-            );
+            graphicsContext.fillPolygon(xPoints, yPoints, asteroid.getNumPoints());
         }
 
-        System.out.println("Draw");
     }
 
     public void setiModel(InteractionModel iModel) {
