@@ -27,21 +27,8 @@ public class SpaceView extends StackPane implements Subscriber {
     @Override
     public void getNotification(String chnl) {
         switch (chnl){
-            case "create" -> {
+            case "create", "delete", "update", "selection" -> {
                 draw();
-                System.out.println("Create");
-            }
-            case "delete" -> {
-                draw();
-                System.out.println("Delete");
-            }
-            case "update" -> {
-                draw();
-                System.out.println("Update");
-            }
-            case "selection" -> {
-                draw();
-                System.out.println("Selection");
             }
         }
     }
