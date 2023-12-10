@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+
 
 public class SpaceView extends StackPane implements Subscriber {
     private InteractionModel iModel;
@@ -48,24 +48,37 @@ public class SpaceView extends StackPane implements Subscriber {
 
     public void draw() {
         graphicsContext.clearRect(0, 0, canvasSize, canvasSize);
+
+        // Rotate canvas
+        graphicsContext.save();
+        graphicsContext.translate(canvasSize/2, canvasSize/2);
+        graphicsContext.rotate(iModel.getWorldRotation());
+        graphicsContext.translate(-canvasSize/2, -canvasSize/2);
+
+
+        // Draw Stars
         graphicsContext.setFill(Color.WHITE);
         for(Star star : model.getStars()){
             graphicsContext.fillOval(star.getX()*canvasSize, star.getY()*canvasSize, star.getRadius(), star.getRadius());
         }
-        graphicsContext.setFill(Color.GRAY);
 
+        // Restore canvas after creating it
+        graphicsContext.restore();
+
+        // Draw Asteroids
+        graphicsContext.setFill(Color.GRAY);
         for (Asteroid asteroid : model.getAsteroids()) {
+            graphicsContext.save();
             double[] xPoints = asteroid.getxPoints();
             double[] yPoints = asteroid.getyPoints();
 
-            for (int i = 0; i < xPoints.length; i++){
-                xPoints[i] = xPoints[i] * canvasSize;
-                yPoints[i] = yPoints[i] * canvasSize;
-            }
 
+            graphicsContext.translate(asteroid.getX() * canvasSize, asteroid.getY() * canvasSize);
+            graphicsContext.rotate(asteroid.getAngle());
+            graphicsContext.scale(canvasSize, canvasSize);
             graphicsContext.fillPolygon(xPoints, yPoints, asteroid.getNumPoints());
+            graphicsContext.restore();
         }
-
     }
 
     public void setiModel(InteractionModel iModel) {

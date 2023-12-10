@@ -14,7 +14,8 @@ public class SpaceController {
     }
 
     public void handleAnimationTick() {
+        iModel.setWorldRotation(iModel.getWorldRotation() + iModel.getRotationSpeed());
+        model.spinAsteroids();
         model.moveAsteroids();
-        //model.spinAsteroids();
     }
 }

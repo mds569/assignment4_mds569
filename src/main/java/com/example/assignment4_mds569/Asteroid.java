@@ -8,7 +8,9 @@ public class Asteroid {
     // Store location and radius of the Asteroid
     // Use normalized coordinates for position (0.0 - 1.0)
     private double x, y, radius, angle;
-    private double xVelocity, yVelocity, aVelocity;
+    private double xVelocity, yVelocity;
+
+    private int aVelocity;
     private ArrayList<Double> xPoints;
     private ArrayList<Double> yPoints;
 
@@ -16,13 +18,15 @@ public class Asteroid {
 
     public Asteroid(){
         // Set instance variables
+        this.xPoints = new ArrayList<>();
+        this.yPoints = new ArrayList<>();
         this.x = Math.random();
         this.y = Math.random();
-        this.radius = (0.05 + Math.random() * (0.10 - 0.05));
+        this.radius = /*(0.05 + Math.random() * (0.10 - 0.05))*/0.1;
         this.angle = 0;
         this.xVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
         this.yVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
-        this.aVelocity = ((-0.006) + Math.random() * (0.006 - (-0.006)));
+        this.aVelocity = (int) (1 + Math.random() * 10);
         createPolygon();
     }
 
@@ -47,19 +51,14 @@ public class Asteroid {
     public int getNumPoints() {return this.numPoints;}
 
     public void createPolygon(){
-        this.xPoints = new ArrayList<>();
-        this.yPoints = new ArrayList<>();
         // Determine number of sections to create
         int sections = (int) (4 + Math.random() * 5);
         this.numPoints = sections;
         for (int i = 0; i < sections; i++){
             double angle = (2 * Math.PI / sections) * i;
-            double rad = this.radius * (0.1 + Math.random());
-            double xVal = this.x + rad * Math.cos(angle);
-            double yVal = this.y + rad * Math.sin(angle);
-
-            xVal = Math.min(1.0, Math.max(0.0, xVal));
-            yVal = Math.min(1.0, Math.max(0.0, yVal));
+            double rad = /*this.radius - 0.02 + Math.random() * 0.04*/((Math.random() * (0.13 - 0.07)) + 0.07);
+            double xVal = /*this.x*/ + rad * Math.cos(angle);
+            double yVal = /*this.y*/ + rad * Math.sin(angle);
 
             xPoints.add(xVal);
             yPoints.add(yVal);
@@ -73,10 +72,16 @@ public class Asteroid {
 
     public void setX(double newX){
         this.x = newX;
+        for (int i = 0; i < numPoints; i++){
+            this.xPoints.set(i, (this.xPoints.get(i) - this.x + newX));
+        }
     }
 
     public void setY(double newY){
         this.y = newY;
+        for (int i = 0; i < numPoints; i++){
+            this.yPoints.set(i, (this.yPoints.get(i) - this.y + newY));
+        }
     }
 
     public void setRadius(double radius){
@@ -95,96 +100,36 @@ public class Asteroid {
         this.yVelocity = yVelocity;
     }
 
-    public void setaVelocity(double aVelocity){
+    public void setaVelocity(int aVelocity){
         this.aVelocity = aVelocity;
     }
 
-    public void increasexVelocity(){
-        // Get the furthest left and right points of the Asteroid
-        double furthestLeft = Collections.min(this.xPoints);
-        double furthestRight = Collections.max(this.xPoints);
-        if (furthestLeft > 1.0){
-            // Move the Asteroid back to the left side of the screen
-            for (int i = 0; i < this.xPoints.size(); i++){
-                this.xPoints.set(i, this.xPoints.get(i) - 1.0);
-            }
-        }
-        else if (furthestRight < 0.0){
-            // Move the Asteroid back to the right side of the screen
-            for (int i = 0; i < this.xPoints.size(); i++){
-                this.xPoints.set(i, this.xPoints.get(i) + 1.0);
-            }
-        }
-        else {
-            for (int i = 0; i < this.xPoints.size(); i++){
-                this.xPoints.set(i, this.xPoints.get(i) + this.xVelocity);
-            }
-        }
-    }
 
-    public void increaseyVelocity(){
-        // Get the furthest up and bottom points of the Asteroid
-        double furthestUp = Collections.min(this.yPoints);
-        double furthestDown = Collections.max(this.yPoints);
-        if (furthestUp > 1.0){
-            // Move the Asteroid back to the top of the screen
-            for (int i = 0; i < this.yPoints.size(); i++){
-                this.yPoints.set(i, this.yPoints.get(i) - 1.0);
-            }
-        }
-        else if (furthestDown < 0.0){
-            // Move the Asteroid back to the bottom of the screen
-            for (int i = 0; i < this.yPoints.size(); i++){
-                this.yPoints.set(i, this.yPoints.get(i) + 1.0);
-            }
-        }
-        else {
-            for (int i = 0; i < this.yPoints.size(); i++){
-                this.yPoints.set(i, this.yPoints.get(i) + this.yVelocity);
-            }
-        }
-    }
+    public void moveAsteroid(){
+        // Update points
+        setX(getX() + getxVelocity());
 
-    public void increaseXandYVelocities(){
-        // Get the furthest left, right, top, and bottom points of the Asteroid
-        double furthestLeft = Collections.min(this.xPoints);
-        double furthestRight = Collections.max(this.xPoints);
-        double furthestTop = Collections.min(this.yPoints);
-        double furthestBottom = Collections.max(this.yPoints);
-
-        // Wrap around for x-axis
-        if (furthestLeft > 1.0) {
-            for (int i = 0; i < this.xPoints.size(); i++) {
-                this.xPoints.set(i, this.xPoints.get(i) - 1.0);
-            }
-        } else if (furthestRight < 0.0) {
-            for (int i = 0; i < this.xPoints.size(); i++) {
-                this.xPoints.set(i, this.xPoints.get(i) + 1.0);
-            }
-        }
-
-        // Wrap around for y-axis
-        if (furthestTop > 1.0) {
-            for (int i = 0; i < this.yPoints.size(); i++) {
-                this.yPoints.set(i, this.yPoints.get(i) - 1.0);
-            }
-        } else if (furthestBottom < 0.0) {
-            for (int i = 0; i < this.yPoints.size(); i++) {
-                this.yPoints.set(i, this.yPoints.get(i) + 1.0);
-            }
+        // Wrap around the screen for x-axis
+        if (getX() < 0.0) {
+            setX(1.0 + getX());
+        } else if (getX() > 1.0) {
+            setX(getX() - 1.0);
         }
 
         // Update points
-        for (int i = 0; i < this.xPoints.size(); i++) {
-            this.xPoints.set(i, this.xPoints.get(i) + this.xVelocity);
+        setY(getY() + getyVelocity());
+
+        // Wrap around the screen for y-axis
+        if (getY() < 0.0) {
+            setY(1.0 + getY());
+        } else if (getY() > 1.0) {
+            setY(getY() - 1.0);
         }
 
-        for (int i = 0; i < this.yPoints.size(); i++) {
-            this.yPoints.set(i, this.yPoints.get(i) + this.yVelocity);
-        }
     }
 
-    public void increaseaVelocity() {
+    public void spinAsteroid() {
         this.angle += aVelocity;
+        if (this.angle >= 360) this.angle = 0;
     }
 }

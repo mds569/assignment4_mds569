@@ -42,16 +42,14 @@ public class SpaceModel {
 
     public void moveAsteroids() {
         for (Asteroid asteroid : this.asteroids){
-            //asteroid.increasexVelocity();
-            //asteroid.increaseyVelocity();
-            asteroid.increaseXandYVelocities();
+            asteroid.moveAsteroid();
         }
         pubSub.publish("update");
     }
 
     public void spinAsteroids() {
         for (Asteroid asteroid : this.asteroids){
-            asteroid.increaseaVelocity();
+            asteroid.spinAsteroid();
         }
         pubSub.publish("update");
     }
