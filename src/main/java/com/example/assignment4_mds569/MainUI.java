@@ -38,7 +38,8 @@ public class MainUI extends BorderPane {
 
         // Create VBox for side panel
         VBox panel = new VBox();
-        panel.setStyle("-fx-border-color: transparent #191919 transparent transparent; -fx-border-width: 0 2 0 0");
+        panel.setSpacing(5);
+        panel.setStyle("-fx-border-color: #191919 #191919 transparent transparent; -fx-border-width: 2 5 0 0");
         panel.getChildren().addAll(miniView, cursorView, controlPanelView);
         panel.setMaxWidth(cursorView.getPrefWidth());
 

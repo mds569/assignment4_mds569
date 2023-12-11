@@ -66,6 +66,9 @@ public class CursorView extends StackPane implements Subscriber {
             graphicsContext.rotate(asteroid.getAngle());
             graphicsContext.scale(canvasSize, canvasSize);
             graphicsContext.fillPolygon(xPoints, yPoints, asteroid.getNumPoints());
+            graphicsContext.setStroke(Color.WHITE);
+            graphicsContext.setLineWidth(0.003);
+            graphicsContext.strokePolygon(xPoints, yPoints, asteroid.getNumPoints());
             graphicsContext.restore();
         }
 

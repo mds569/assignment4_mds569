@@ -55,6 +55,7 @@ public class SpaceView extends StackPane implements Subscriber {
         // Draw Asteroids
         graphicsContext.setFill(Color.GRAY);
         for (Asteroid asteroid : model.getAsteroids()) {
+            graphicsContext.setFill(Color.GRAY);
             graphicsContext.save();
             double[] xPoints = asteroid.getxPoints();
             double[] yPoints = asteroid.getyPoints();
@@ -64,6 +65,9 @@ public class SpaceView extends StackPane implements Subscriber {
             graphicsContext.rotate(asteroid.getAngle());
             graphicsContext.scale(canvasSize, canvasSize);
             graphicsContext.fillPolygon(xPoints, yPoints, asteroid.getNumPoints());
+            graphicsContext.setStroke(Color.WHITE);
+            graphicsContext.setLineWidth(0.003);
+            graphicsContext.strokePolygon(xPoints, yPoints, asteroid.getNumPoints());
             graphicsContext.restore();
         }
     }
