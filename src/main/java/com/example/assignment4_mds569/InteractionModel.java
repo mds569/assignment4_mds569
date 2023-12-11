@@ -26,6 +26,7 @@ public class InteractionModel {
 
     public void setWorldRotation(double worldRotation) {
         this.worldRotation = worldRotation;
+        pubSub.publish("update");
     }
 
     public void setWorldRotationSpeed(double rotationSpeed){this.rotationSpeed = rotationSpeed;}

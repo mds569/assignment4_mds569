@@ -1,6 +1,8 @@
 package com.example.assignment4_mds569;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -17,6 +19,7 @@ public class MainUI extends BorderPane {
         PublishSubscribe publishSubscribe = new PublishSubscribe();
         SpaceView miniView = new SpaceView(200);
         CursorView cursorView = new CursorView(200, 800);
+        ControlPanelView controlPanelView = new ControlPanelView();
 
         // Connect them properly
         controller.setModel(model);
@@ -36,7 +39,7 @@ public class MainUI extends BorderPane {
         // Create VBox for side panel
         VBox panel = new VBox();
         panel.setStyle("-fx-border-color: transparent #191919 transparent transparent; -fx-border-width: 0 2 0 0");
-        panel.getChildren().addAll(miniView, cursorView);
+        panel.getChildren().addAll(miniView, cursorView, controlPanelView);
         panel.setMaxWidth(cursorView.getPrefWidth());
 
         // Create main application StackPane and set style
@@ -86,8 +89,23 @@ public class MainUI extends BorderPane {
         timer.start();
 
         // Event routing
-        //setOnKeyPressed(controller::handleKeyPressed);
         view.setOnMouseMoved(controller::handleMouseMove);
+        controlPanelView.getRotationSlider().valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
+                double speed = newVal.doubleValue();
+                controller.updateRotationSpeed(speed);
+            }
+        });
+
+        controlPanelView.getMovementCheckbox().selectedProperty().addListener((observableValue, oldVal, newVal) -> {
+            controller.updateState(newVal, controlPanelView.getSpinCheckbox().isSelected());
+        });
+
+        controlPanelView.getSpinCheckbox().selectedProperty().addListener((observableValue, oldVal, newVal) -> {
+            controller.updateState(controlPanelView.getMovementCheckbox().isSelected(), newVal);
+        });
+
 
     }
 }
