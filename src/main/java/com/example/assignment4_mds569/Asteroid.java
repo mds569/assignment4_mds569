@@ -50,6 +50,7 @@ public class Asteroid {
 
     public int getNumPoints() {return this.numPoints;}
 
+    // Generate polygon points when the Asteroid is created
     public void createPolygon(){
         // Determine number of sections to create
         int sections = (int) (4 + Math.random() * 5);
@@ -128,8 +129,15 @@ public class Asteroid {
 
     }
 
+    // Called every animation frame, increases rotation
     public void spinAsteroid() {
         this.angle += aVelocity;
         if (this.angle >= 360) this.angle = 0;
     }
+
+    // Check if in bounds
+    public boolean contains(double x, double y){
+        return false;
+    }
+
 }

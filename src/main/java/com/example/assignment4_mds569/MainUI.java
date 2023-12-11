@@ -91,6 +91,13 @@ public class MainUI extends BorderPane {
 
         // Event routing
         view.setOnMouseMoved(controller::handleMouseMove);
+
+        // Event routing for Selection and Interaction
+        view.setOnMousePressed(controller::handleMousePressed);
+        view.setOnMouseDragged(controller::handleMouseDragged);
+        view.setOnMouseReleased(controller::handleMouseReleased);
+
+        // Event routing for ControlPanelView
         controlPanelView.getRotationSlider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
@@ -98,11 +105,9 @@ public class MainUI extends BorderPane {
                 controller.updateRotationSpeed(speed);
             }
         });
-
         controlPanelView.getMovementCheckbox().selectedProperty().addListener((observableValue, oldVal, newVal) -> {
             controller.updateState(newVal, controlPanelView.getSpinCheckbox().isSelected());
         });
-
         controlPanelView.getSpinCheckbox().selectedProperty().addListener((observableValue, oldVal, newVal) -> {
             controller.updateState(controlPanelView.getMovementCheckbox().isSelected(), newVal);
         });

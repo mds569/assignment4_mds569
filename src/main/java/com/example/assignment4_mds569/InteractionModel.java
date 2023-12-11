@@ -42,4 +42,9 @@ public class InteractionModel {
     public void setPubSub(PublishSubscribe publishSubscribe) {
         this.pubSub = publishSubscribe;
     }
+
+    // Behavior for selecting Asteroids
+    public void selectAsteroid(double x, double y) {
+
+    }
 }

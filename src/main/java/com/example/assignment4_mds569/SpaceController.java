@@ -23,7 +23,7 @@ public class SpaceController {
         this.iModel = newIModel;
     }
 
-    // Whenever a box is checked/unchecked we will update the State
+    // Whenever a box is checked/unchecked, we will update the State
     public void updateState(boolean isMoveChecked, boolean isSpinChecked){
         if (isMoveChecked && isSpinChecked){
             currentState = State.BOTH_CHECKED;
@@ -53,6 +53,26 @@ public class SpaceController {
             }
             case NO_CHECKED -> iModel.setWorldRotation(iModel.getWorldRotation() + iModel.getRotationSpeed());
         }
+    }
+
+    public void handleMousePressed(MouseEvent mouseEvent){
+        iModel.selectAsteroid(mouseEvent.getX(), mouseEvent.getY());
+    }
+
+    public void handleMouseDragged(MouseEvent mouseEvent){
+
+    }
+
+    public void handleMouseReleased(MouseEvent mouseEvent){
+
+    }
+
+    private double rotateX(double x, double y, double radians){
+        return Math.cos(radians) * x - Math.sin(radians) * y;
+    }
+
+    private double rotateY(double x, double y, double radians){
+        return Math.sin(radians) * x + Math.cos(radians) * y;
     }
 
     // Called when mouse is moved, notifies the interaction model of new coordinates
