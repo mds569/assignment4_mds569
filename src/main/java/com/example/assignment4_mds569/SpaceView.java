@@ -8,10 +8,10 @@ import javafx.scene.paint.Color;
 
 
 public class SpaceView extends StackPane implements Subscriber {
-    private InteractionModel iModel;
-    private SpaceModel model;
+    protected InteractionModel iModel;
+    protected SpaceModel model;
 
-    private double canvasSize;
+    public double canvasSize;
 
     public Canvas myCanvas;
     public GraphicsContext graphicsContext;

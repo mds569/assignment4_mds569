@@ -3,13 +3,26 @@ package com.example.assignment4_mds569;
 public class InteractionModel {
     private PublishSubscribe pubSub;
 
+    // Store the current world rotation along with it's rotation speed
     private double worldRotation;
     private double rotationSpeed;
+
+    // Store the cursor x and y (based in the SpaceView)
+    private double cursorX, cursorY;
 
     public InteractionModel(){
         this.worldRotation = 0.0;
         this.rotationSpeed = 0.5;
     }
+
+    public void updateCursorLocation(double cursorX, double cursorY){
+        this.cursorX = cursorX;
+        this.cursorY = cursorY;
+    }
+
+    public double getCursorX() {return this.cursorX;}
+
+    public double getCursorY() {return this.cursorY;}
 
     public void setWorldRotation(double worldRotation) {
         this.worldRotation = worldRotation;

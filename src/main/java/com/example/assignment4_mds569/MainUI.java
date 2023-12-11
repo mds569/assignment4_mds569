@@ -1,6 +1,7 @@
 package com.example.assignment4_mds569;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -14,7 +15,8 @@ public class MainUI extends BorderPane {
         SpaceModel model = new SpaceModel();
         InteractionModel iModel = new InteractionModel();
         PublishSubscribe publishSubscribe = new PublishSubscribe();
-        SpaceView miniView = new SpaceView(150);
+        SpaceView miniView = new SpaceView(200);
+        CursorView cursorView = new CursorView(200, 800);
 
         // Connect them properly
         controller.setModel(model);
@@ -24,6 +26,8 @@ public class MainUI extends BorderPane {
         view.setModel(model);
         miniView.setiModel(iModel);
         miniView.setModel(model);
+        cursorView.setiModel(iModel);
+        cursorView.setModel(model);
         iModel.setPubSub(publishSubscribe);
 
         // Set growth constraints
@@ -32,8 +36,8 @@ public class MainUI extends BorderPane {
         // Create VBox for side panel
         VBox panel = new VBox();
         panel.setStyle("-fx-border-color: transparent #191919 transparent transparent; -fx-border-width: 0 2 0 0");
-        panel.getChildren().addAll(miniView);
-        panel.setMaxWidth(miniView.getPrefWidth());
+        panel.getChildren().addAll(miniView, cursorView);
+        panel.setMaxWidth(cursorView.getPrefWidth());
 
         // Create main application StackPane and set style
         StackPane main = new StackPane(view);
@@ -59,10 +63,16 @@ public class MainUI extends BorderPane {
         publishSubscribe.addSubscriber("update", miniView);
         publishSubscribe.addSubscriber("selection", miniView);
 
+        // Ensure the cursorView is subscribed
+        publishSubscribe.addSubscriber("create", cursorView);
+        publishSubscribe.addSubscriber("delete", cursorView);
+        publishSubscribe.addSubscriber("update", cursorView);
+        publishSubscribe.addSubscriber("selection", cursorView);
+
         // Create the stars and asteroids
         model.createInitialStars();
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 3; i++){
             model.createAsteroid();
         }
 
@@ -77,6 +87,7 @@ public class MainUI extends BorderPane {
 
         // Event routing
         //setOnKeyPressed(controller::handleKeyPressed);
+        view.setOnMouseMoved(controller::handleMouseMove);
 
     }
 }

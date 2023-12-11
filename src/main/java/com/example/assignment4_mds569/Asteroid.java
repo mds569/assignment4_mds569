@@ -109,7 +109,7 @@ public class Asteroid {
         // Update points
         setX(getX() + getxVelocity());
 
-        // Wrap around the screen for x-axis
+        // Wrap around logic for x-axis
         if (getX() < 0.0) {
             setX(1.0 + getX());
         } else if (getX() > 1.0) {
@@ -119,7 +119,7 @@ public class Asteroid {
         // Update points
         setY(getY() + getyVelocity());
 
-        // Wrap around the screen for y-axis
+        // Wrap around logic for y-axis
         if (getY() < 0.0) {
             setY(1.0 + getY());
         } else if (getY() > 1.0) {
